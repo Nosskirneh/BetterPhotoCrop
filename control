@@ -1,0 +1,10 @@
+Package: se.nosskirneh.betterphotocrop
+Name: BetterPhotoCrop
+Depends: mobilesubstrate
+Version: 1.0
+Architecture: iphoneos-arm
+Description: A better cropping experience
+Depiction: https://andreashenriksson.se/repo/depictions/?p=se.nosskirneh.betterphotocrop
+Maintainer: Andreas Henriksson
+Author: Andreas Henriksson
+Section: Tweaks
