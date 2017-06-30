@@ -1,8 +1,11 @@
 @interface PUCropToolController : UIViewController
 @property (nonatomic, retain) UIView *_cropView;
-@property (nonatomic, retain) UIView *_cropCanvasView;
+
 - (void)resetToDefaultValueAnimated:(BOOL)reset;
 - (BOOL)canResetToDefaultValue;
+
+- (BOOL)_hasAutoAppliedCropSuggestion;
+- (void)_applyCropSuggestion;
 @end
 
 %hook PUCropToolController
@@ -33,7 +36,7 @@
                       orig.size.height);
 }
 
-// Remove reset button
+// Remove reset / auto button
 - (void)_updateCropToggleConstraintsIfNeeded {
     return;
 }
@@ -42,7 +45,7 @@
     return;
 }
 
-// Add reset gesture
+// Add reset / auto gesture
 - (void)viewDidLoad {
     %orig;
 
@@ -56,6 +59,8 @@
     if (gesture.state == UIGestureRecognizerStateEnded) {
         if ([self canResetToDefaultValue]) {
             [self resetToDefaultValueAnimated:YES];
+        } else if ([self _hasAutoAppliedCropSuggestion]) {
+            [self _applyCropSuggestion];
         }
     }
 }
